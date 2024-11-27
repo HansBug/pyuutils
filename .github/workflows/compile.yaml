@@ -71,7 +71,7 @@ jobs:
         shell: bash
         run: |
           choco install tree cloc wget curl make zip
-          choco install git cmake ninja make gcc
+          choco install git cmake ninja make mingw
       - name: Set up system dependencies on MacOS
         if: ${{ env.OS_NAME == 'MacOS' }}
         run: |
@@ -89,7 +89,6 @@ jobs:
           cmake -S UUtils -B build
           cmake --build build
           sudo cmake --install build
-          tree build
 #      - name: Upload packed files to artifacts
 #        uses: actions/upload-artifact@v3
 #        with:
