@@ -89,8 +89,8 @@ jobs:
           cmake -S UUtils -B build
           cmake --build build
           sudo cmake --install build
-#      - name: Upload packed files to artifacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: hfutils-v${{ env.PACKAGE_VERSION }}-${{ env.OS_NAME }}-${{ env.CPU_ARCH }}-${{ env.GIT_COMMIT_ID }}
-#          path: ./dist/*
+      - name: Upload packed files to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-dir-${{ matrix.os }}
+          path: ./build
