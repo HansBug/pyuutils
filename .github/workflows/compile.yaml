@@ -100,7 +100,8 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          hfutils upload -r hansbug/builds -d uutils/${{ matrix.os }} -o build --private
+          hfutils whoami
+          hfutils upload -r hansbug/builds -d uutils/${{ matrix.os }} -i build --private
 #      - name: Upload packed files to artifacts
 #        uses: actions/upload-artifact@v3
 #        with:
