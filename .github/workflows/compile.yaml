@@ -13,9 +13,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-#          - 'ubuntu-20.04'
-#          - 'windows-2019'
-#          - 'macos-12'
+          #          - 'ubuntu-20.04'
+          #          - 'windows-2019'
+          #          - 'macos-12'
           - 'ubuntu-latest'
           - 'windows-latest'
           - 'macos-latest'
@@ -94,7 +94,16 @@ jobs:
         run: |
           cmake -S UUtils -B build
           cmake --build build
+      - name: Install on Linux/MacOS
+        if: ${{ env.OS_NAME != 'Windows' }}
+        shell: bash
+        run: |
           sudo cmake --install build
+      - name: Install on Windows
+        if: ${{ env.OS_NAME == 'Windows' }}
+        shell: bash
+        run: |
+          cmake --install build
       - name: Upload build dir
         shell: bash
         env:
