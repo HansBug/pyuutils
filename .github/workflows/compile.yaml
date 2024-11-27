@@ -77,20 +77,32 @@ jobs:
         run: |
           brew install tree cloc wget curl make zip
           brew install git cmake ninja make gcc
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Test the basic environment
         shell: bash
         run: |
+          pip install -U hfutils
+          python -V
           cmake --version
           gcc --version
           tree .
-      - name: Get package version
+      - name: Build
         shell: bash
         run: |
           cmake -S UUtils -B build
           cmake --build build
           sudo cmake --install build
-      - name: Upload packed files to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-dir-${{ matrix.os }}
-          path: ./build
+      - name: Upload build dir
+        shell: bash
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          hfutils upload -r hansbug/builds -d uutils/${{ matrix.os }} -o build --private
+#      - name: Upload packed files to artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: build-dir-${{ matrix.os }}
+#          path: ./build
