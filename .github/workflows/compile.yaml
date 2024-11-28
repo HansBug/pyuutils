@@ -116,6 +116,7 @@ jobs:
         run: |
           make build
           ls -al $(find pyuutils -type f)
+          make clean_x
           make unittest
       - name: Pack Wheels
         shell: bash
