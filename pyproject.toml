@@ -16,7 +16,7 @@ before-build = [
     "pip install pybind11[global]",
     "pip install -U cmake",
     "(if \"%PYTHON_ARCH%\"==\"32\" (cmake -S UUtils -B build -A Win32 -DCMAKE_BUILD_TYPE=Release) else (cmake -S UUtils -B build -A x64 -DCMAKE_BUILD_TYPE=Release))",
-    "cmake --build build --config Release",
+    "(if \"%PYTHON_ARCH%\"==\"32\" (cmake --build build --config Release -A Win32) else (cmake --build build --config Release -A x64))",
     "ctest --test-dir build --output-on-failure -C Release",
     "cmake --install build --prefix bin_install --config Release",
 ]
