@@ -41,6 +41,9 @@ test-command = [
 archs = ["x86_64", "aarch64"] # Build for x86_64 and arm64
 skip = ["pp* *musllinux*"] # dependencies do not build for musl
 before-build = [
+    "echo {project}",
+    "pwd",
+    "ls -al",
     "cp -rf {project}/UUtils UUtils",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
