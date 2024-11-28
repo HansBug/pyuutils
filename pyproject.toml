@@ -34,6 +34,7 @@ test-command = [
 [tool.cibuildwheel.macos]
 archs = ["x86_64", "arm64"] # Build for x86_64 and arm64
 before-build = [
+    "./macos_kill_cmake.sh",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
