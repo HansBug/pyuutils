@@ -106,11 +106,15 @@ jobs:
         shell: bash
         run: |
           sudo cmake --install build
-      - name: Install on Windows
+#      - name: Install on Windows
+#        if: ${{ env.OS_NAME == 'Windows' }}
+#        shell: bash
+#        run: |
+#          cmake --install build
+      - name: Install on Windows (Powershell)
         if: ${{ env.OS_NAME == 'Windows' }}
-        shell: bash
         run: |
-          cmake --install build
+          powershell -Command "Start-Process cmd -ArgumentList '/c cmake --install build' -Verb RunAs"
 #      - name: Upload build dir
 #        shell: bash
 #        env:
