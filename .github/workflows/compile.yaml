@@ -120,6 +120,6 @@ jobs:
       - name: Pack Wheels
         shell: bash
         run: |
-          make package
+          CTEST_CFG=Release make bin_build package
           ls -al dist
           

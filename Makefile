@@ -26,6 +26,8 @@ clean:
 	rm -rf $(shell find ${SRC_DIR} -name '*.so')
 	rm -rf ${DIST_DIR} ${WHEELHOUSE_DIR}
 	rm -rf ${BUILD_DIR}/temp.*
+clean_x:
+	rm -rf ${DIST_DIR} ${WHEELHOUSE_DIR} ${BUILD_DIR} ${BINSTALL_DIR}
 
 package:
 	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) -m build --sdist --wheel --outdir ${DIST_DIR}
