@@ -18,6 +18,8 @@ RANGE_TEST_DIR  := ${TEST_DIR}/${RANGE_DIR}
 RANGE_BENCH_DIR := ${BENCHMARK_DIR}/${RANGE_DIR}
 RANGE_SRC_DIR   := ${SRC_DIR}/${RANGE_DIR}
 
+CTEST_CFG ?=
+
 build:
 	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) setup.py build_ext --inplace
 clean:
@@ -39,7 +41,7 @@ bin_build:
 	cmake -S UUtils -B ${BUILD_DIR}
 	cmake --build ${BUILD_DIR}
 bin_test:
-	ctest --test-dir ${BUILD_DIR} --output-on-failure -C Release
+	ctest --test-dir ${BUILD_DIR} --output-on-failure $(if ${CTEST_CFG},-C ${CTEST_CFG},)
 bin_install:
 	cmake --install build --prefix "${BINSTALL_DIR}"
 bin_clean:

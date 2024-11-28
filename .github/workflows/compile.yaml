@@ -100,10 +100,16 @@ jobs:
         shell: bash
         run: |
           make bin_build
-      - name: Test the Builds
+      - name: Test the Builds (non-Windows)
+        if: ${{ env.OS_NAME != 'Windows' }}
         shell: bash
         run: |
           make bin_test
+      - name: Test the Builds (Windows)
+        if: ${{ env.OS_NAME == 'Windows' }}
+        shell: bash
+        run: |
+          CTEST_CFG=Debug make bin_test
       - name: Install the Builds
         shell: bash
         run: |
