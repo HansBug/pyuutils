@@ -1,12 +1,12 @@
-name: C++ Compile
+name: Code Test
 
 on:
-#  push:
+  push:
   workflow_dispatch:
 
 jobs:
-  cpp_build:
-    name: C++ Code Build
+  unittest:
+    name: Code test
     runs-on: ${{ matrix.os }}
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     strategy:
@@ -16,9 +16,6 @@ jobs:
           - 'ubuntu-20.04'
           - 'windows-2019'
           - 'macos-12'
-#          - 'ubuntu-latest'
-#          - 'windows-latest'
-#          - 'macos-latest'
         python-version:
           - '3.8'
           - '3.9'
@@ -114,17 +111,30 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-test.txt
           pip install -r requirements-build.txt
-      - name: Build And Test Wheels
+      - name: Test the Python environment
+        shell: bash
+        run: |
+          python -V
+          pip --version
+          pip list
+          tree .
+          cloc pyuutils
+          cloc test
+      - name: Build And Run Unittest
+        env:
+          CI: 'true'
+          LINETRACE: 1
         shell: bash
         run: |
           make build
           ls -al $(find pyuutils -type f)
           make clean_x
           make unittest
-      - name: Pack Wheels
-        shell: bash
-        run: |
-          CTEST_CFG=Release make bin
-          make build package
-          ls -al dist
-          
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false

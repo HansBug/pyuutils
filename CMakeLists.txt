@@ -3,6 +3,16 @@ project(uutils_hash)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Check if LINETRACE environment variable is set
+if(DEFINED ENV{LINETRACE})
+    # Add coverage flags only when LINETRACE is not empty
+    if(NOT "$ENV{LINETRACE}" STREQUAL "")
+        message(STATUS "Coverage analysis enabled via LINETRACE")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
+    endif()
+endif()
+
 # read from env BINSTALL_DIR, otherwise use bin_install
 if(DEFINED ENV{BINSTALL_DIR})
     set(CUSTOM_INSTALL_PREFIX $ENV{BINSTALL_DIR} CACHE PATH "Custom installation prefix")
