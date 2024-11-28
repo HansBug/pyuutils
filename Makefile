@@ -39,7 +39,7 @@ bin_build:
 	cmake -S UUtils -B ${BUILD_DIR}
 	cmake --build ${BUILD_DIR}
 bin_test:
-	ctest --test-dir ${BUILD_DIR} --output-on-failure
+	ctest --test-dir ${BUILD_DIR} --output-on-failure -C Release
 bin_install:
 	cmake --install build --prefix "${BINSTALL_DIR}"
 bin_clean:
