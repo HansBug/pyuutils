@@ -27,6 +27,10 @@ jobs:
           - aarch64
           - x86
           - AMD64
+          - i686
+          - ppc64le
+          - s390x
+          - armv7l
         exclude:
           - os: ubuntu-20.04
             architecture: arm64
@@ -42,12 +46,28 @@ jobs:
             architecture: arm64
           - os: windows-2019
             architecture: aarch64
+          - os: windows-2019
+            architecture: i686
+          - os: windows-2019
+            architecture: ppc64le
+          - os: windows-2019
+            architecture: s390x
+          - os: windows-2019
+            architecture: armv7l
           - os: macos-12
             architecture: aarch64
           - os: macos-12
             architecture: x86
           - os: macos-12
             architecture: AMD64
+          - os: macos-12
+            architecture: i686
+          - os: macos-12
+            architecture: ppc64le
+          - os: macos-12
+            architecture: s390x
+          - os: macos-12
+            architecture: armv7l
 
     steps:
       - name: Checkout code
