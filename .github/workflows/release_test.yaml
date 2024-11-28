@@ -30,7 +30,7 @@ jobs:
           - i686
           - ppc64le
           - s390x
-          - armv7l
+#          - armv7l  # musllinux only
         exclude:
           - os: ubuntu-20.04
             architecture: arm64
