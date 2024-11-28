@@ -14,6 +14,7 @@ skip = ["pp*"] # Do not build for PyPy
 archs = ["x86", 'AMD64']
 before-build = [
     "pip install pybind11[global]",
+    "pip install -U cmake",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
@@ -31,11 +32,20 @@ test-command = [
     "rmdir /s /q test",
 ]
 
+[tool.cibuildwheel.windows-win32]
+environment = {
+    "CMAKE_GENERATOR" = "Visual Studio 17 2022",
+    "CMAKE_GENERATOR_PLATFORM" = "Win32",
+    "CMAKE_ARCHITECTURE" = "x86"
+}
+
 ## macOS build configuration
 [tool.cibuildwheel.macos]
 archs = ["x86_64", "arm64"] # Build for x86_64 and arm64
 before-build = [
     "./macos_kill_cmake.sh",
+    "pip install pybind11[global]",
+    "pip install -U cmake",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
@@ -58,6 +68,8 @@ test-command = [
 archs = ["x86_64", "aarch64"] # Build for x86_64 and arm64
 skip = ["pp* *musllinux*"] # dependencies do not build for musl
 before-build = [
+    "pip install pybind11[global]",
+    "pip install -U cmake",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
