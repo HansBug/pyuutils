@@ -3,7 +3,14 @@ project(uutils_hash)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CUSTOM_INSTALL_PREFIX "./bin_install" CACHE PATH "Custom installation prefix")
+# read from env BINSTALL_DIR, otherwise use bin_install
+if(DEFINED ENV{BINSTALL_DIR})
+    set(CUSTOM_INSTALL_PREFIX $ENV{BINSTALL_DIR} CACHE PATH "Custom installation prefix")
+else()
+    set(CUSTOM_INSTALL_PREFIX "./bin_install" CACHE PATH "Custom installation prefix")
+    message(WARNING "Environment variable BINSTALL_DIR not set, using default path: ${CUSTOM_INSTALL_PREFIX}")
+endif()
+
 list(APPEND CMAKE_PREFIX_PATH "${CUSTOM_INSTALL_PREFIX}")
 list(APPEND CMAKE_LIBRARY_PATH "${CUSTOM_INSTALL_PREFIX}/lib")
 list(APPEND CMAKE_INCLUDE_PATH "${CUSTOM_INSTALL_PREFIX}/include")

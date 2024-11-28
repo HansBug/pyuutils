@@ -19,13 +19,13 @@ RANGE_BENCH_DIR := ${BENCHMARK_DIR}/${RANGE_DIR}
 RANGE_SRC_DIR   := ${SRC_DIR}/${RANGE_DIR}
 
 build:
-	$(PYTHON) setup.py build_ext --inplace
+	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) setup.py build_ext --inplace
 clean:
 	rm -rf $(shell find ${SRC_DIR} -name '*.so')
 	rm -rf ${DIST_DIR} ${WHEELHOUSE_DIR}
 
 package:
-	$(PYTHON) -m build --sdist --wheel --outdir ${DIST_DIR}
+	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) -m build --sdist --wheel --outdir ${DIST_DIR}
 
 unittest:
 	$(PYTHON) -m pytest "${RANGE_TEST_DIR}" \
@@ -41,7 +41,7 @@ bin_build:
 bin_test:
 	ctest --test-dir ${BUILD_DIR} --output-on-failure
 bin_install:
-	cmake --install build --prefix ${BINSTALL_DIR}
+	cmake --install build --prefix "${BINSTALL_DIR}"
 bin_clean:
 	rm -rf ${BUILD_DIR} ${BINSTALL_DIR}
 bin: bin_build bin_test bin_install
