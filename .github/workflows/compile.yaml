@@ -99,22 +99,30 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          cmake -S UUtils -B build
-          cmake --build build
-      - name: Install on Linux/MacOS
-        if: ${{ env.OS_NAME != 'Windows' }}
+          make bin_build
+      - name: Test the Builds
         shell: bash
         run: |
-          sudo cmake --install build
-#      - name: Install on Windows
-#        if: ${{ env.OS_NAME == 'Windows' }}
+          make bin_test
+      - name: Install the Builds
+        shell: bash
+        run: |
+          make bin_install
+          tree bin_install
+#      - name: Install on Linux/MacOS
+#        if: ${{ env.OS_NAME != 'Windows' }}
 #        shell: bash
 #        run: |
-#          cmake --install build
-      - name: Install on Windows (Powershell)
-        if: ${{ env.OS_NAME == 'Windows' }}
-        run: |
-          powershell -Command "Start-Process cmd -ArgumentList '/c cmake --install build' -Verb RunAs"
+#          sudo cmake --install build
+#      #      - name: Install on Windows
+#      #        if: ${{ env.OS_NAME == 'Windows' }}
+#      #        shell: bash
+#      #        run: |
+#      #          cmake --install build
+#      - name: Install on Windows (Powershell)
+#        if: ${{ env.OS_NAME == 'Windows' }}
+#        run: |
+#          powershell -Command "Start-Process cmd -ArgumentList '/c cmake --install build' -Verb RunAs"
 #      - name: Upload build dir
 #        shell: bash
 #        env:
