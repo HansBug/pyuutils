@@ -48,7 +48,7 @@ bin_build:
 bin_test:
 	ctest --test-dir "${BUILD_DIR}" --output-on-failure $(if ${CTEST_CFG},-C ${CTEST_CFG},)
 bin_install:
-	cmake --install build --prefix "${BINSTALL_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
+	cmake --install "${BUILD_DIR}" --prefix "${BINSTALL_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
 bin_clean:
 	rm -rf ${BUILD_DIR} ${BINSTALL_DIR}
 bin: bin_build bin_test bin_install
