@@ -41,13 +41,7 @@ before-build = [
     "./macos_kill_cmake.sh",
     "pip install pybind11[global]",
     "pip install -U cmake",
-    """
-    (if [ "$(uname -m)" = "arm64" ]; then
-        cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES="arm64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 -DCMAKE_BUILD_TYPE=Release;
-    else
-        cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES="x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_BUILD_TYPE=Release;
-    fi)
-    """,
+    "if [ \"$(uname -m)\" = \"arm64\" ]; then cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 -DCMAKE_BUILD_TYPE=Release; else cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_BUILD_TYPE=Release; fi",
 #    "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
