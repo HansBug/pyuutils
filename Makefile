@@ -31,6 +31,8 @@ clean_x:
 
 package:
 	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) -m build --sdist --wheel --outdir ${DIST_DIR}
+zip:
+	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) -m build --sdist --outdir ${DIST_DIR}
 
 unittest:
 	$(PYTHON) -m pytest "${RANGE_TEST_DIR}" \
