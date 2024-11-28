@@ -51,11 +51,3 @@ target_include_directories(_c_uutils_hash_compute PRIVATE
 )
 
 install(TARGETS _c_uutils_hash_compute DESTINATION pyuutils/hash)
-
-# 设置 rpath 以便在运行时能找到自定义安装路径中的库
-if(APPLE)
-    set(CMAKE_INSTALL_RPATH "@loader_path;@loader_path/../../lib;${CUSTOM_INSTALL_PREFIX}/lib")
-elseif(UNIX)
-    set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../../lib:${CUSTOM_INSTALL_PREFIX}/lib")
-endif()
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)

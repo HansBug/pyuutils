@@ -96,18 +96,23 @@ jobs:
           cmake --version
           gcc --version
           tree .
-      - name: Build The Binaries (non-Windows)
-        if: ${{ env.OS_NAME != 'Windows' }}
-        shell: bash
-        run: |
-          make bin
-          tree bin_install
-      - name: Build The Binaries (Windows)
-        if: ${{ env.OS_NAME == 'Windows' }}
+      - name: Build The Binaries
         shell: bash
         run: |
           CTEST_CFG=Release make bin
           tree bin_install
+#      - name: Build The Binaries (non-Windows)
+#        if: ${{ env.OS_NAME != 'Windows' }}
+#        shell: bash
+#        run: |
+#          make bin
+#          tree bin_install
+#      - name: Build The Binaries (Windows)
+#        if: ${{ env.OS_NAME == 'Windows' }}
+#        shell: bash
+#        run: |
+#          CTEST_CFG=Release make bin
+#          tree bin_install
 #      - name: Test the Builds (non-Windows)
 #        if: ${{ env.OS_NAME != 'Windows' }}
 #        shell: bash
