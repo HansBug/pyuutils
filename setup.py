@@ -106,8 +106,8 @@ setup(
     long_description_content_type='text/markdown',
     author=meta['__AUTHOR__'],
     author_email=meta['__AUTHOR_EMAIL__'],
-    license='Apache License, Version 2.0',
-    keywords='Tree-structured Value Management',
+    license='GPL-3.0 License',
+    keywords='Python Wrapper of Uppaal UUtils',
     url='https://github.com/HansBug/pyuutils',
 
     # environment
