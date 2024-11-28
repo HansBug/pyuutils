@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import subprocess
@@ -51,6 +52,8 @@ class CMakeBuild(build_ext):
             self.build_extension(ext)
 
     def build_extension(self, ext):
+        logging.basicConfig(level=logging.INFO)
+
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
@@ -65,9 +68,14 @@ class CMakeBuild(build_ext):
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
                                                               self.distribution.get_version())
         if not os.path.exists(self.build_temp):
-            os.makedirs(self.build_temp)
-        subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
-        subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
+            os.makedirs(self.build_temp, exist_ok=True)
+        b1_cmds = ['cmake', ext.sourcedir] + cmake_args
+        logging.info(f'Build with {b1_cmds!r} ...')
+        subprocess.check_call(b1_cmds, cwd=self.build_temp, env=env)
+
+        b2_cmds = ['cmake', '--build', '.'] + build_args
+        logging.info(f'Build with {b2_cmds!r} ...')
+        subprocess.check_call(b2_cmds, cwd=self.build_temp)
 
 
 setup(
