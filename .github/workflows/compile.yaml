@@ -69,21 +69,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y tree cloc wget curl make zip
-          sudo apt-get install -y git cmake ninja-build make gcc g++
-      #          sudo apt-get install -y pybind11-dev
+          sudo apt-get install -y git ninja-build make gcc g++
       - name: Set up system dependencies on Windows
         if: ${{ env.OS_NAME == 'Windows' }}
         shell: bash
         run: |
           choco install tree cloc wget curl make zip
-          choco install cmake ninja make mingw
-      #          choco install pybind11
+          choco install ninja make mingw
       - name: Set up system dependencies on MacOS
         if: ${{ env.OS_NAME == 'MacOS' }}
         run: |
           brew install tree cloc wget curl make zip
-          brew install git cmake ninja make gcc
-      #          brew install pybind11
+          brew install git ninja make gcc
       - name: Set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -92,6 +89,7 @@ jobs:
         shell: bash
         run: |
           pip install "pybind11[global]"
+          pip install -U cmake
       - name: Test the basic environment
         shell: bash
         run: |
