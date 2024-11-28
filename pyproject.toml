@@ -41,15 +41,10 @@ test-command = [
 archs = ["x86_64", "aarch64"] # Build for x86_64 and arm64
 skip = ["pp* *musllinux*"] # dependencies do not build for musl
 before-build = [
-    "echo {project}",
-    "pwd",
-    "ls -al",
-    "cp -rf {project}/UUtils UUtils",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
     "cmake --install build --prefix bin_install --config Release",
-    "cp -rf {project}/* .",
 ]
 before-test = [# Unittest for linux
     "pip install -r {project}/requirements-test.txt",
