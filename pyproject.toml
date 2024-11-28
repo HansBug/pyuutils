@@ -41,7 +41,14 @@ before-build = [
     "./macos_kill_cmake.sh",
     "pip install pybind11[global]",
     "pip install -U cmake",
-    "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
+    """
+    if [ "$(uname -m)" = "arm64" ]; then
+        cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES="arm64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 -DCMAKE_BUILD_TYPE=Release
+    else
+        cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES="x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_BUILD_TYPE=Release
+    fi
+    """,
+#    "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
     "cmake --install build --prefix bin_install --config Release",
@@ -61,7 +68,8 @@ test-command = [
 ## Linux build configuration
 [tool.cibuildwheel.linux]
 archs = ["x86_64", "aarch64"] # Build for x86_64 and arm64
-skip = ["pp* *musllinux*"] # dependencies do not build for musl
+#skip = ["pp* *musllinux*"] # dependencies do not build for musl
+skip = ["pp*"] # dependencies do not build for musl
 before-build = [
     "pip install pybind11[global]",
     "pip install -U cmake",

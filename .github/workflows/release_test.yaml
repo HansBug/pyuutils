@@ -89,7 +89,8 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.3
         env:
-          CIBW_SKIP: "pp* *musllinux*"
+#          CIBW_SKIP: "pp* *musllinux*"
+          CIBW_SKIP: "pp*"
           CIBW_ARCHS: ${{ matrix.architecture }}
           CIBW_PROJECT_REQUIRES_PYTHON: ~=${{ matrix.python }}.0
       - name: Show the buildings
