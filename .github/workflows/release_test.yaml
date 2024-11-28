@@ -59,11 +59,11 @@ jobs:
         uses: docker/setup-qemu-action@v1
         with:
           platforms: all
-      - name: Set up Visual Studio
-        if: ${{ runner.os == 'Windows' }}
-        uses: microsoft/setup-msbuild@v1.1
-        with:
-          vs-version: '17.0'
+#      - name: Set up Visual Studio
+#        if: ${{ runner.os == 'Windows' }}
+#        uses: microsoft/setup-msbuild@v1.1
+#        with:
+#          vs-version: '17.0'
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.3
         env:
