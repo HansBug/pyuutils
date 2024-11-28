@@ -44,6 +44,7 @@ before-build = [
     "uname -m",
     "echo $CIBW_ARCHS",
     "echo xxx",
+    # something wrong with this line, xxhash compile arch is still x86_64 when CIBW_ARCHS is surly 'arm64'
     "if [ \"$CIBW_ARCHS\" = \"arm64\" ]; then cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES=\"arm64\" -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 -DCMAKE_BUILD_TYPE=Release -DCMAKE_TRY_COMPILE_OSX_ARCHITECTURES=arm64; else cmake -S UUtils -B build -DCMAKE_OSX_ARCHITECTURES=\"x86_64\" -DCMAKE_SYSTEM_PROCESSOR=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_BUILD_TYPE=Release -DCMAKE_TRY_COMPILE_OSX_ARCHITECTURES=x86_64; fi",
 #    "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build --config Release",
