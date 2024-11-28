@@ -13,6 +13,7 @@ skip = ["pp*"] # Do not build for PyPy
 [tool.cibuildwheel.windows]
 archs = ["x86", 'AMD64']
 before-build = [
+    "if \"%PYTHON_ARCH%\"==\"32\" (cmake -G \"Visual Studio 17 2022\" -A Win32 -B build .) else (cmake -G \"Visual Studio 17 2022\" -A x64 -B build .)",
     "pip install pybind11[global]",
     "pip install -U cmake",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
@@ -31,13 +32,6 @@ test-command = [
     "pytest test -sv -m unittest --log-level=DEBUG",
     "rmdir /s /q test",
 ]
-
-[tool.cibuildwheel.windows-win32]
-environment = {
-    "CMAKE_GENERATOR" = "Visual Studio 17 2022",
-    "CMAKE_GENERATOR_PLATFORM" = "Win32",
-    "CMAKE_ARCHITECTURE" = "x86"
-}
 
 ## macOS build configuration
 [tool.cibuildwheel.macos]
