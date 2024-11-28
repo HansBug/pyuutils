@@ -66,17 +66,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y tree cloc wget curl make zip
           sudo apt-get install -y git cmake ninja-build make gcc g++
+          sudo apt-get install -y pybind11-dev
       - name: Set up system dependencies on Windows
         if: ${{ env.OS_NAME == 'Windows' }}
         shell: bash
         run: |
           choco install tree cloc wget curl make zip
           choco install cmake ninja make mingw
+          choco install pybind11
       - name: Set up system dependencies on MacOS
         if: ${{ env.OS_NAME == 'MacOS' }}
         run: |
           brew install tree cloc wget curl make zip
           brew install git cmake ninja make gcc
+          brew install pybind11
       - name: Set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -104,13 +107,13 @@ jobs:
         shell: bash
         run: |
           cmake --install build
-      - name: Upload build dir
-        shell: bash
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: |
-          hfutils whoami
-          hfutils upload -r HansBug/builds -a uutils/${{ matrix.os }}.zip -i build --private
+#      - name: Upload build dir
+#        shell: bash
+#        env:
+#          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+#        run: |
+#          hfutils whoami
+#          hfutils upload -r HansBug/builds -a uutils/${{ matrix.os }}.zip -i build --private
 #      - name: Upload packed files to artifacts
 #        uses: actions/upload-artifact@v3
 #        with:
