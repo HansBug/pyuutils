@@ -76,6 +76,10 @@ jobs:
         run: |
           choco install tree cloc wget curl make zip
           choco install ninja make mingw
+      - name: Kill Primitive CMake on MacOS
+        if: ${{ env.OS_NAME == 'MacOS' }}
+        run: |
+          ./macos_kill_cmake.sh
       - name: Set up system dependencies on MacOS
         if: ${{ env.OS_NAME == 'MacOS' }}
         run: |
