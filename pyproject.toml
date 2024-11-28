@@ -11,7 +11,8 @@ skip = ["pp*"] # Do not build for PyPy
 
 ## Windows build configuration
 [tool.cibuildwheel.windows]
-archs = ["x86", 'AMD64']
+#archs = ["x86", 'AMD64']
+archs = ['AMD64']
 before-build = [
     "pip install pybind11[global]",
     "pip install -U cmake",
