@@ -69,6 +69,7 @@ include(UUtils/cmake/sanitizer.cmake)
 list(APPEND PYBIND_MODULES
     "_c_uutils_hash_compute|pyuutils/hash/compute.cpp"
     "_c_uutils_base_random|pyuutils/base/random.cpp"
+    "_c_uutils_base_platform|pyuutils/base/platform.cpp"
 )
 
 foreach(MODULE_PAIR IN LISTS PYBIND_MODULES)
