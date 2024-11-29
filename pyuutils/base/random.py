@@ -1,6 +1,5 @@
 # noinspection PyUnresolvedReferences
-# from .._core._c_uutils_base_random import _CRandomGenerator
-from ._c_uutils_base_random import _CRandomGenerator
+from .._core._c_uutils_base_random import _CRandomGenerator
 
 __all__ = ['RandomGenerator']
 
