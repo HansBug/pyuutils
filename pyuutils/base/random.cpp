@@ -8,7 +8,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(_c_uutils_base_random, m) {
     m.doc() = "Python bindings for RandomGenerator class";
 
-    py::class_<RandomGenerator>(m, "RandomGenerator")
+    py::class_<RandomGenerator>(m, "_CRandomGenerator")
         .def(py::init<>(), "Initialize a new RandomGenerator instance.")
         .def_static("set_seed", &RandomGenerator::set_seed, py::arg("seed"),
                     "Set globally shared random seed.\n\n"

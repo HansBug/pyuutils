@@ -54,8 +54,8 @@ include(UUtils/cmake/sanitizer.cmake)
 # include(UUtils/cmake/boost.cmake)
 
 list(APPEND PYBIND_MODULES
-    "_c_uutils_hash|pyuutils/hash/_c_uutils_hash.cpp"
-    "_c_uutils_base_random|pyuutils/base/_c_uutils_base_random.cpp"
+    "_c_uutils_hash|pyuutils/hash/hash.cpp"
+    "_c_uutils_base_random|pyuutils/base/random.cpp"
 )
 
 foreach(MODULE_PAIR IN LISTS PYBIND_MODULES)
