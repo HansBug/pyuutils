@@ -38,15 +38,15 @@ foreach(LIB ${STATIC_LIBS})
 endforeach()
 
 # set options
-# if(UNIX AND NOT APPLE)
-#     set(LINK_OPTIONS "-Wl,--whole-archive" ${ALL_STATIC_LIBS} "-Wl,--no-whole-archive")
-# elseif(APPLE)
-#     set(LINK_OPTIONS "-Wl,-all_load" ${ALL_STATIC_LIBS})
-# elseif(WIN32)
-#     set(LINK_OPTIONS ${ALL_STATIC_LIBS})
-#     # Windows need more operations
-# endif()
-# message(INFO "LINK OPTIONS: ${LINK_OPTIONS}")
+if(UNIX AND NOT APPLE)
+    set(LINK_OPTIONS "-Wl,--whole-archive" ${ALL_STATIC_LIBS} "-Wl,--no-whole-archive")
+elseif(APPLE)
+    set(LINK_OPTIONS "-Wl,-all_load" ${ALL_STATIC_LIBS})
+elseif(WIN32)
+    set(LINK_OPTIONS ${ALL_STATIC_LIBS})
+    # Windows need more operations
+endif()
+message(INFO "LINK OPTIONS: ${LINK_OPTIONS}")
 
 include(UUtils/cmake/xxhash.cmake)
 include(UUtils/cmake/stdcpp.cmake)

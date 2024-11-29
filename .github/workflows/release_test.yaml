@@ -13,8 +13,8 @@ jobs:
       matrix:
         os:
           - 'ubuntu-20.04'
-#          - 'windows-2019'
-#          - 'macos-12'
+          - 'windows-2019'
+          - 'macos-12'
         python:
           - '3.8'
           - '3.9'
@@ -27,10 +27,10 @@ jobs:
           - aarch64
           - x86
           - AMD64
-#          - i686
-#          - ppc64le
-#          - s390x
-#          - armv7l  # musllinux only
+          - i686
+          - ppc64le
+          - s390x
+          - armv7l  # musllinux only
         exclude:
           - os: ubuntu-20.04
             architecture: arm64
