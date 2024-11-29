@@ -24,13 +24,13 @@ jobs:
         architecture:
           - x86_64
 #          - arm64  # macOS only, seems not well-supported
-#          - aarch64
+          - aarch64
           - x86
           - AMD64
-#          - i686
-#          - ppc64le
-#          - s390x
-#          - armv7l  # musllinux only
+          - i686
+          - ppc64le
+          - s390x
+          - armv7l  # musllinux only
         exclude:
           - os: ubuntu-20.04
             architecture: arm64
@@ -81,15 +81,9 @@ jobs:
         uses: docker/setup-qemu-action@v1
         with:
           platforms: all
-      #      - name: Set up Visual Studio
-      #        if: ${{ runner.os == 'Windows' }}
-      #        uses: microsoft/setup-msbuild@v1.1
-      #        with:
-      #          vs-version: '17.0'
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.3
         env:
-#          CIBW_SKIP: "pp* *musllinux*"
           CIBW_SKIP: "pp*"
           CIBW_ARCHS: ${{ matrix.architecture }}
           CIBW_PROJECT_REQUIRES_PYTHON: ~=${{ matrix.python }}.0
