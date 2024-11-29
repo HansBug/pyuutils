@@ -98,7 +98,9 @@ jobs:
           pip install -U hfutils
           python -V
           cmake --version
+          which gcc
           gcc --version
+          which g++
           g++ --version
           tree .
       - name: Build The Binaries

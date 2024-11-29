@@ -4,7 +4,7 @@ PYTHON := $(shell which python)
 CC     ?= $(shell which gcc)
 CXX    ?= $(shell which g++)
 
-CMAKE_CFGS ?= -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
+CMAKE_CFGS ?= $(if ${IS_WIN},-G "MinGW Makefiles",) -DCMAKE_C_COMPILER="${CC}" -DCMAKE_CXX_COMPILER="${CXX}"
 
 PROJ_DIR       := .
 DOC_DIR        := ${PROJ_DIR}/docs
