@@ -53,11 +53,29 @@ include(UUtils/cmake/stdcpp.cmake)
 include(UUtils/cmake/sanitizer.cmake)
 # include(UUtils/cmake/boost.cmake)
 
-pybind11_add_module(_c_uutils_hash pyuutils/hash/_c_uutils_hash.cpp)
-target_link_libraries(_c_uutils_hash PRIVATE xxHash ${LINK_OPTIONS})
-target_include_directories(_c_uutils_hash PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CUSTOM_INSTALL_PREFIX}/include
+list(APPEND PYBIND_MODULES
+    "_c_uutils_hash|pyuutils/hash/_c_uutils_hash.cpp"
+    "_c_uutils_base_random|pyuutils/base/_c_uutils_base_random.cpp"
 )
 
-install(TARGETS _c_uutils_hash DESTINATION pyuutils/hash)
+foreach(MODULE_PAIR IN LISTS PYBIND_MODULES)
+    message(STATUS "Current Pair: ${MODULE_PAIR}")
+    string(FIND "${MODULE_PAIR}" "|" SEMICOLON_POS)
+    if(SEMICOLON_POS GREATER -1)
+        string(SUBSTRING "${MODULE_PAIR}" 0 ${SEMICOLON_POS} MODULE_NAME)
+        math(EXPR SOURCE_START "${SEMICOLON_POS} + 1")
+        string(SUBSTRING "${MODULE_PAIR}" ${SOURCE_START} -1 SOURCE_FILE)
+
+        pybind11_add_module(${MODULE_NAME} ${SOURCE_FILE})
+        target_link_libraries(${MODULE_NAME} PRIVATE xxHash ${LINK_OPTIONS})
+        target_include_directories(${MODULE_NAME} PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}
+            ${CUSTOM_INSTALL_PREFIX}/include
+        )
+
+        get_filename_component(INSTALL_DIR "${SOURCE_FILE}" PATH)
+        install(TARGETS ${MODULE_NAME} DESTINATION ${INSTALL_DIR})
+    else()
+        message(FATAL_ERROR "Invalid module pair format: ${MODULE_PAIR}")
+    endif()
+endforeach()

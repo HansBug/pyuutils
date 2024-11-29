@@ -112,7 +112,10 @@ setup(
 
     # environment
     python_requires=">=3.8",
-    ext_modules=[CMakeExtension('pyuutils.hash._c_uutils_hash')],
+    ext_modules=[
+        CMakeExtension('pyuutils._core._c_uutils_hash'),
+        # CMakeExtension('pyuutils._core._c_uutils_base_random'),
+    ],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
     install_requires=requirements,
