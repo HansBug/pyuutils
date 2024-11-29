@@ -13,7 +13,7 @@ def random_gen():
 
 
 @pytest.mark.unittest
-class TestRandomGeneratorWrapper:
+class TestBaseRandom:
     def test_set_seed(self, random_gen):
         """Test setting the global seed."""
         random_gen.set_seed(42)
