@@ -27,10 +27,10 @@ jobs:
           - aarch64
           - x86
           - AMD64
-          - i686
-          - ppc64le
-          - s390x
-#          - armv7l  # musllinux only
+#          - i686
+#          - ppc64le
+#          - s390x
+          - armv7l  # musllinux only
         exclude:
           - os: ubuntu-20.04
             architecture: arm64
