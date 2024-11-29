@@ -48,11 +48,11 @@ unittest:
 
 bin_build:
 	cmake -S UUtils -B "${BUILD_DIR}" $(if ${CTEST_CFG},-DCMAKE_BUILD_TYPE=${CTEST_CFG},) ${CMAKE_CFGS}
-	cmake --build "${BUILD_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},) ${CMAKE_CFGS}
+	cmake --build "${BUILD_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
 bin_test:
 	ctest --test-dir "${BUILD_DIR}" --output-on-failure $(if ${CTEST_CFG},-C ${CTEST_CFG},)
 bin_install:
-	cmake --install "${BUILD_DIR}" --prefix "${BINSTALL_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},) ${CMAKE_CFGS}
+	cmake --install "${BUILD_DIR}" --prefix "${BINSTALL_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
 bin_clean:
 	rm -rf ${BUILD_DIR} ${BINSTALL_DIR}
 bin: bin_build bin_test bin_install
