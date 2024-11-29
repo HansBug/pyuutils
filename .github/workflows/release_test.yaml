@@ -1,12 +1,12 @@
 name: Release Test
 
 on:
-  push:
+#  push:
   workflow_dispatch:
 
 jobs:
   wheel_build:
-    name: Try build the wheels
+    name: Try build
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
