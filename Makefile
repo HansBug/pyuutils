@@ -4,7 +4,8 @@ PYTHON := $(shell which python)
 CC     ?= $(shell which gcc)
 CXX    ?= $(shell which g++)
 
-CMAKE_CFGS ?= $(if ${IS_WIN},-G "MinGW Makefiles",) -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
+CMAKE_G ?= $(if ${IS_WIN},-G "MinGW Makefiles",)
+CMAKE_C ?= -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 PROJ_DIR       := .
 DOC_DIR        := ${PROJ_DIR}/docs
@@ -47,12 +48,12 @@ unittest:
 		$(if ${WORKERS},-n ${WORKERS},)
 
 bin_build:
-	cmake -S UUtils -B "${BUILD_DIR}" $(if ${CTEST_CFG},-DCMAKE_BUILD_TYPE=${CTEST_CFG},) ${CMAKE_CFGS}
-	cmake --build "${BUILD_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
+	cmake -S UUtils -B "${BUILD_DIR}" $(if ${CTEST_CFG},-DCMAKE_BUILD_TYPE=${CTEST_CFG},) ${CMAKE_G} ${CMAKE_C}
+	cmake --build "${BUILD_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},) ${CMAKE_G}
 bin_test:
 	ctest --test-dir "${BUILD_DIR}" --output-on-failure $(if ${CTEST_CFG},-C ${CTEST_CFG},)
 bin_install:
-	cmake --install "${BUILD_DIR}" --prefix "${BINSTALL_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
+	cmake --install "${BUILD_DIR}" --prefix "${BINSTALL_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},) ${CMAKE_G}
 bin_clean:
 	rm -rf ${BUILD_DIR} ${BINSTALL_DIR}
 bin: bin_build bin_test bin_install
