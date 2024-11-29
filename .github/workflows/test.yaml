@@ -106,7 +106,7 @@ jobs:
       - name: Build The Binaries
         shell: bash
         run: |
-          CC=$(which gcc) CXX=$(which g++) CTEST_CFG=Release make bin
+          CC=gcc CXX=g++ CTEST_CFG=Release make bin
           tree bin_install
       - name: Prepare Python Env
         shell: bash
