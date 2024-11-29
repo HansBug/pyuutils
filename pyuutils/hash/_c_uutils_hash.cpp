@@ -4,7 +4,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(_c_uutils_hash_compute, m) {
+PYBIND11_MODULE(_c_uutils_hash, m) {
     m.doc() = "Python bindings for UUtils/include/hash/compute.h functions";
 
     m.def("_c_hash_compute", [](py::buffer data, uint32_t initval) {

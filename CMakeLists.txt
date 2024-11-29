@@ -53,11 +53,11 @@ include(UUtils/cmake/stdcpp.cmake)
 include(UUtils/cmake/sanitizer.cmake)
 # include(UUtils/cmake/boost.cmake)
 
-pybind11_add_module(_c_uutils_hash_compute pyuutils/hash/_c_uutils_hash_compute.cpp)
-target_link_libraries(_c_uutils_hash_compute PRIVATE xxHash ${LINK_OPTIONS})
-target_include_directories(_c_uutils_hash_compute PRIVATE
+pybind11_add_module(_c_uutils_hash pyuutils/hash/_c_uutils_hash.cpp)
+target_link_libraries(_c_uutils_hash PRIVATE xxHash ${LINK_OPTIONS})
+target_include_directories(_c_uutils_hash PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CUSTOM_INSTALL_PREFIX}/include
 )
 
-install(TARGETS _c_uutils_hash_compute DESTINATION pyuutils/hash)
+install(TARGETS _c_uutils_hash DESTINATION pyuutils/hash)

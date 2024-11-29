@@ -1,7 +1,7 @@
 from typing import Union
 
 # This file can be empty or contain Python-side implementations if needed
-from ._c_uutils_hash_compute import _c_hash_compute, _c_hash_compute_str, _c_hash_compute3
+from ._c_uutils_hash import _c_hash_compute, _c_hash_compute_str, _c_hash_compute3
 
 
 def hash_compute(data: Union[bytes, bytearray, str]):
