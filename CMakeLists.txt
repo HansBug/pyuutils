@@ -3,6 +3,13 @@ project(uutils_hash)
 
 set(CMAKE_CXX_STANDARD 17)
 
+execute_process(
+    COMMAND pwd
+    OUTPUT_VARIABLE CURRENT_DIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+message(STATUS "Current working directory: ${CURRENT_DIR}")
+
 # Check if LINETRACE environment variable is set
 if(DEFINED ENV{LINETRACE})
     # Add coverage flags only when LINETRACE is not empty
@@ -16,6 +23,7 @@ endif()
 # read from env BINSTALL_DIR, otherwise use bin_install
 if(DEFINED ENV{BINSTALL_DIR})
     set(CUSTOM_INSTALL_PREFIX $ENV{BINSTALL_DIR} CACHE PATH "Custom installation prefix")
+    message(STATUS "BINSTALL_DIR: ${CUSTOM_INSTALL_PREFIX}")
 else()
     set(CUSTOM_INSTALL_PREFIX "./bin_install" CACHE PATH "Custom installation prefix")
     message(WARNING "Environment variable BINSTALL_DIR not set, using default path: ${CUSTOM_INSTALL_PREFIX}")
@@ -30,6 +38,7 @@ find_package(pybind11 REQUIRED)
 # find all libraries from uutils library
 file(GLOB STATIC_LIBS "${CUSTOM_INSTALL_PREFIX}/lib/*.a" "${CUSTOM_INSTALL_PREFIX}/lib/*.lib")
 message(STATUS "STATIC_LIBS: ${STATIC_LIBS}")
+message(FATAL_ERROR "STATIC_LIBS: ${STATIC_LIBS}")
 # set(ALL_STATIC_LIBS "")
 # foreach(LIB ${STATIC_LIBS})
 #     get_filename_component(LIB_NAME ${LIB} NAME_WE)
