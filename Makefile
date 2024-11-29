@@ -1,10 +1,10 @@
 .PHONY: docs test unittest build clean benchmark zip bin_test bin_build bin_clean bin bin_install
 
 PYTHON := $(shell which python)
-GCC    ?= $(shell which gcc)
-GPP    ?= $(shell which g++)
+CC     := $(shell which gcc)
+CXX    := $(shell which g++)
 
-CMAKE_CFGS ?= $(if ${IS_WIN},-G "MinGW Makefiles",) -DCMAKE_C_COMPILER="${GCC}" -DCMAKE_CXX_COMPILER="${GPP}"
+CMAKE_CFGS ?= $(if ${IS_WIN},-G "MinGW Makefiles",) -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 PROJ_DIR       := .
 DOC_DIR        := ${PROJ_DIR}/docs
