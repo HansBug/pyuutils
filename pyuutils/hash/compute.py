@@ -1,6 +1,6 @@
 from typing import Union, List
 
-# This file can be empty or contain Python-side implementations if needed
+# noinspection PyUnresolvedReferences
 from ._c_uutils_hash import (
     _c_hash_murmur2_U8, _c_hash_computeU32, _c_hash_computeU16,
     _c_hash_computeI32, _c_hash_computeI16, _c_hash_computeI8,
