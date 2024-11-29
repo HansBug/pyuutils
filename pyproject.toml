@@ -80,6 +80,7 @@ before-build = [
     "cmake --build build --config Release",
     "ctest --test-dir build --output-on-failure -C Release",
     "cmake --install build --prefix bin_install --config Release",
+    "export BINSTALL_DIR=$(readlink -f bin_install)",
 ]
 before-test = [# Unittest for linux
     "pip install -r {project}/requirements-test.txt",
