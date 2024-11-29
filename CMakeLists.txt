@@ -65,6 +65,7 @@ foreach(MODULE_PAIR IN LISTS PYBIND_MODULES)
         string(SUBSTRING "${MODULE_PAIR}" 0 ${SEMICOLON_POS} MODULE_NAME)
         math(EXPR SOURCE_START "${SEMICOLON_POS} + 1")
         string(SUBSTRING "${MODULE_PAIR}" ${SOURCE_START} -1 SOURCE_FILE)
+        message(STATUS "Module: ${MODULE_NAME}, Source file: ${SOURCE_FILE}")
 
         pybind11_add_module(${MODULE_NAME} ${SOURCE_FILE})
         target_link_libraries(${MODULE_NAME} PRIVATE xxHash ${LINK_OPTIONS})
