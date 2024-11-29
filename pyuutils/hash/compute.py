@@ -1,7 +1,8 @@
 from typing import Union, List
 
 # noinspection PyUnresolvedReferences
-from .._core._c_uutils_hash_compute import (
+# from .._core._c_uutils_hash_compute import (
+from ._c_uutils_hash_compute import (
     _c_hash_murmur2_U8, _c_hash_computeU32, _c_hash_computeU16,
     _c_hash_computeI32, _c_hash_computeI16, _c_hash_computeI8,
     _c_hash_computeStr, _c_hash_compute3
