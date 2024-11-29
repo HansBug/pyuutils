@@ -69,6 +69,10 @@ archs = ["x86_64", "aarch64"] # Build for x86_64 and arm64
 #skip = ["pp* *musllinux*"] # dependencies do not build for musl
 skip = ["pp*"] # dependencies do not build for musl
 before-build = [
+    "echo {project}",
+    "ls -al {project}",
+    "pwd",
+    "ls -al",
     "pip install pybind11[global]",
     "pip install -U cmake",
     "cmake -S UUtils -B build -DCMAKE_BUILD_TYPE=Release",
@@ -80,6 +84,10 @@ before-test = [# Unittest for linux
     "pip install -r {project}/requirements-test.txt",
 ]
 test-command = [
+    "echo {project}",
+    "ls -al {project}",
+    "pwd",
+    "ls -al",
     "rm -rf {project}/build {project}/bin_install",
     "cp -rf {project}/test test",
     "cp {project}/pytest.ini pytest.ini",
