@@ -38,7 +38,7 @@ find_package(pybind11 REQUIRED)
 # find all libraries from uutils library
 file(GLOB STATIC_LIBS "${CUSTOM_INSTALL_PREFIX}/lib*/*.a" "${CUSTOM_INSTALL_PREFIX}/lib*/*.lib")
 message(STATUS "STATIC_LIBS: ${STATIC_LIBS}")
-message(FATAL_ERROR "STATIC_LIBS: ${STATIC_LIBS}")
+# message(FATAL_ERROR "STATIC_LIBS: ${STATIC_LIBS}")
 # set(ALL_STATIC_LIBS "")
 # foreach(LIB ${STATIC_LIBS})
 #     get_filename_component(LIB_NAME ${LIB} NAME_WE)
