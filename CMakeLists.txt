@@ -3,6 +3,13 @@ project(uutils_hash)
 
 set(CMAKE_CXX_STANDARD 17)
 
+execute_process(
+    COMMAND pwd
+    OUTPUT_VARIABLE CURRENT_DIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+message(STATUS "Current working directory: ${CURRENT_DIR}")
+
 # Check if LINETRACE environment variable is set
 if(DEFINED ENV{LINETRACE})
     # Add coverage flags only when LINETRACE is not empty
@@ -16,6 +23,7 @@ endif()
 # read from env BINSTALL_DIR, otherwise use bin_install
 if(DEFINED ENV{BINSTALL_DIR})
     set(CUSTOM_INSTALL_PREFIX $ENV{BINSTALL_DIR} CACHE PATH "Custom installation prefix")
+    message(STATUS "BINSTALL_DIR: ${CUSTOM_INSTALL_PREFIX}")
 else()
     set(CUSTOM_INSTALL_PREFIX "./bin_install" CACHE PATH "Custom installation prefix")
     message(WARNING "Environment variable BINSTALL_DIR not set, using default path: ${CUSTOM_INSTALL_PREFIX}")
@@ -28,25 +36,30 @@ list(APPEND CMAKE_INCLUDE_PATH "${CUSTOM_INSTALL_PREFIX}/include")
 find_package(pybind11 REQUIRED)
 
 # find all libraries from uutils library
-file(GLOB STATIC_LIBS "${CUSTOM_INSTALL_PREFIX}/lib/*.a" "${CUSTOM_INSTALL_PREFIX}/lib/*.lib")
-set(ALL_STATIC_LIBS "")
-foreach(LIB ${STATIC_LIBS})
-    get_filename_component(LIB_NAME ${LIB} NAME_WE)
-    add_library(${LIB_NAME} STATIC IMPORTED)
-    set_target_properties(${LIB_NAME} PROPERTIES IMPORTED_LOCATION ${LIB})
-    list(APPEND ALL_STATIC_LIBS ${LIB_NAME})
-endforeach()
+file(GLOB STATIC_LIBS "${CUSTOM_INSTALL_PREFIX}/lib*/*.a" "${CUSTOM_INSTALL_PREFIX}/lib*/*.lib")
+if(NOT STATIC_LIBS)
+    message(FATAL_ERROR "No static libraries (*.a or *.lib) found in ${CUSTOM_INSTALL_PREFIX}/lib* directories")
+endif()
+message(STATUS "STATIC_LIBS: ${STATIC_LIBS}")
+# message(FATAL_ERROR "STATIC_LIBS: ${STATIC_LIBS}")
+# set(ALL_STATIC_LIBS "")
+# foreach(LIB ${STATIC_LIBS})
+#     get_filename_component(LIB_NAME ${LIB} NAME_WE)
+#     add_library(${LIB_NAME} STATIC IMPORTED)
+#     set_target_properties(${LIB_NAME} PROPERTIES IMPORTED_LOCATION ${LIB})
+#     list(APPEND ALL_STATIC_LIBS ${LIB_NAME})
+# endforeach()
 
 # set options
-if(UNIX AND NOT APPLE)
-    set(LINK_OPTIONS "-Wl,--whole-archive" ${ALL_STATIC_LIBS} "-Wl,--no-whole-archive")
-elseif(APPLE)
-    set(LINK_OPTIONS "-Wl,-all_load" ${ALL_STATIC_LIBS})
-elseif(WIN32)
-    set(LINK_OPTIONS ${ALL_STATIC_LIBS})
-    # Windows need more operations
-endif()
-message(INFO "LINK OPTIONS: ${LINK_OPTIONS}")
+# if(UNIX AND NOT APPLE)
+#     set(LINK_OPTIONS "-Wl,--whole-archive" ${ALL_STATIC_LIBS} "-Wl,--no-whole-archive")
+# elseif(APPLE)
+#     set(LINK_OPTIONS "-Wl,-all_load" ${ALL_STATIC_LIBS})
+# elseif(WIN32)
+#     set(LINK_OPTIONS ${ALL_STATIC_LIBS})
+#     # Windows need more operations
+# endif()
+# message(INFO "LINK OPTIONS: ${LINK_OPTIONS}")
 
 include(UUtils/cmake/xxhash.cmake)
 include(UUtils/cmake/stdcpp.cmake)
@@ -54,7 +67,7 @@ include(UUtils/cmake/sanitizer.cmake)
 # include(UUtils/cmake/boost.cmake)
 
 pybind11_add_module(_c_uutils_hash_compute pyuutils/hash/compute.cpp)
-target_link_libraries(_c_uutils_hash_compute PRIVATE xxHash ${LINK_OPTIONS})
+target_link_libraries(_c_uutils_hash_compute PRIVATE xxHash ${STATIC_LIBS})
 target_include_directories(_c_uutils_hash_compute PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CUSTOM_INSTALL_PREFIX}/include
@@ -63,7 +76,7 @@ target_include_directories(_c_uutils_hash_compute PRIVATE
 install(TARGETS _c_uutils_hash_compute DESTINATION pyuutils/_core)
 
 pybind11_add_module(_c_uutils_base_random pyuutils/base/random.cpp)
-target_link_libraries(_c_uutils_base_random PRIVATE xxHash ${LINK_OPTIONS})
+target_link_libraries(_c_uutils_base_random PRIVATE xxHash ${STATIC_LIBS})
 target_include_directories(_c_uutils_base_random PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CUSTOM_INSTALL_PREFIX}/include
