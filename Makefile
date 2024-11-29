@@ -1,6 +1,8 @@
 .PHONY: docs test unittest build clean benchmark zip bin_test bin_build bin_clean bin bin_install
 
 PYTHON := $(shell which python)
+CC     ?= $(shell which gcc)
+CXX    ?= $(shell which g++)
 
 PROJ_DIR       := .
 DOC_DIR        := ${PROJ_DIR}/docs

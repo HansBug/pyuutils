@@ -4,6 +4,10 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  CC: gcc
+  CXX: g++
+
 jobs:
   unittest:
     name: Code test
@@ -99,6 +103,7 @@ jobs:
           python -V
           cmake --version
           gcc --version
+          g++ --version
           tree .
       - name: Build The Binaries
         shell: bash
