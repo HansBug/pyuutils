@@ -48,7 +48,7 @@ unittest:
 		$(if ${WORKERS},-n ${WORKERS},)
 
 bin_build:
-	cmake -S UUtils -B "${BUILD_DIR}" $(if ${CTEST_CFG},-DCMAKE_BUILD_TYPE=${CTEST_CFG},) ${CMAKE_G} ${CMAKE_C}
+	cmake -S UUtils -B "${BUILD_DIR}" $(if ${CTEST_CFG},-DCMAKE_BUILD_TYPE=${CTEST_CFG},)
 	cmake --build "${BUILD_DIR}" $(if ${CTEST_CFG},--config ${CTEST_CFG},)
 bin_test:
 	ctest --test-dir "${BUILD_DIR}" --output-on-failure $(if ${CTEST_CFG},-C ${CTEST_CFG},)
