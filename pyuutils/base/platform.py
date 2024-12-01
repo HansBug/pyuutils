@@ -17,10 +17,6 @@ __all__ = [
 ]
 
 
-def _windows_check():
-    pass
-
-
 @dataclass
 class MemInfo:
     """
