@@ -1,6 +1,8 @@
+from unittest import skipUnless
 from unittest.mock import patch
 
 import pytest
+from hbutils.testing import OS
 
 from pyuutils.base.platform import (
     MemInfo, ProcInfo, get_os_error, get_memory_info,
@@ -54,6 +56,7 @@ class TestPlatform:
         assert info.time_sys == 0
         assert info.time_real == 0
 
+    @skipUnless(not OS.windows, 'Non-windows required')
     @pytest.mark.parametrize(['code', 'message'], [
         # (-2, 'Unknown error -2'),
         # (-1, 'Unknown error -1'),
@@ -74,10 +77,32 @@ class TestPlatform:
         (14, 'Bad address'),
         (15, 'Block device required')
     ])
-    def test_get_os_error(self, code, message):
+    def test_get_os_error_non_windows(self, code, message):
         error_msg = get_os_error(code)
         assert isinstance(error_msg, str)
         assert error_msg == message
+
+    @skipUnless(OS.windows, 'Windows required')
+    @pytest.mark.parametrize(['code', 'message'], [
+        (1, 'Incorrect function.'),
+        (2, 'The system cannot find the file specified.'),
+        (3, 'The system cannot find the path specified.'),
+        (4, 'The system cannot open the file.'),
+        (7, 'The storage control blocks were destroyed.'),
+        (8, 'Not enough memory resources are available to process this command.'),
+        (9, 'The storage control block address is invalid.'),
+        (13, 'The data is invalid.'),
+        (14, 'Not enough memory resources are available to complete this operation.'),
+        (15, 'The system cannot find the drive specified.')
+    ])
+    def test_get_os_error_windows(self, code, message):
+        error_msg = get_os_error(code)
+        assert isinstance(error_msg, str)
+        assert error_msg == message
+
+    def test_get_memory_info_run(self):
+        info = get_memory_info()
+        assert isinstance(info, MemInfo)
 
     @patch('pyuutils.base.platform._c_base_getMemInfo')
     def test_get_memory_info(self, mock_get_meminfo, sample_meminfo):
@@ -101,10 +126,17 @@ class TestPlatform:
         assert info.virt_total == sample_meminfo.virt_total
         assert info.virt_avail == sample_meminfo.virt_avail
 
+    def test_init_process_info_run(self):
+        init_process_info()
+
     @patch('pyuutils.base.platform._c_base_initProcInfo')
     def test_init_process_info(self, mock_init):
         init_process_info()
         mock_init.assert_called_once()
+
+    def test_get_process_info_run(self):
+        info = get_process_info()
+        assert isinstance(info, ProcInfo)
 
     @patch('pyuutils.base.platform._c_base_getProcInfo')
     def test_get_process_info(self, mock_get_procinfo, sample_procinfo):
@@ -125,6 +157,10 @@ class TestPlatform:
         assert info.time_user == sample_procinfo.time_user
         assert info.time_sys == sample_procinfo.time_sys
         assert info.time_real == sample_procinfo.time_real
+
+    def test_get_process_info_max_run(self):
+        info = get_process_info_max()
+        assert isinstance(info, ProcInfo)
 
     @patch('pyuutils.base.platform._c_base_getProcInfoMax')
     def test_get_process_info_max(self, mock_get_procinfo_max, sample_procinfo):
