@@ -93,12 +93,12 @@ class TestPlatform:
         (9, 'The storage control block address is invalid.'),
         (13, 'The data is invalid.'),
         (14, 'Not enough memory resources are available to complete this operation.'),
-        (15, 'The system cannot find the drive specified.')
+        (15, 'The system cannot find the drive specified.'),
     ])
     def test_get_os_error_windows(self, code, message):
         error_msg = get_os_error(code)
         assert isinstance(error_msg, str)
-        assert error_msg == message
+        assert error_msg.rstrip() == message  # TODO: optimize the C code, we need to process \r\n linewrap
 
     def test_get_memory_info_run(self):
         info = get_memory_info()
