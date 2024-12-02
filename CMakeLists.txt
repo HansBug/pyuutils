@@ -41,25 +41,6 @@ if(NOT STATIC_LIBS)
     message(FATAL_ERROR "No static libraries (*.a or *.lib) found in ${CUSTOM_INSTALL_PREFIX}/lib* directories")
 endif()
 message(STATUS "STATIC_LIBS: ${STATIC_LIBS}")
-# message(FATAL_ERROR "STATIC_LIBS: ${STATIC_LIBS}")
-# set(ALL_STATIC_LIBS "")
-# foreach(LIB ${STATIC_LIBS})
-#     get_filename_component(LIB_NAME ${LIB} NAME_WE)
-#     add_library(${LIB_NAME} STATIC IMPORTED)
-#     set_target_properties(${LIB_NAME} PROPERTIES IMPORTED_LOCATION ${LIB})
-#     list(APPEND ALL_STATIC_LIBS ${LIB_NAME})
-# endforeach()
-
-# set options
-# if(UNIX AND NOT APPLE)
-#     set(LINK_OPTIONS "-Wl,--whole-archive" ${ALL_STATIC_LIBS} "-Wl,--no-whole-archive")
-# elseif(APPLE)
-#     set(LINK_OPTIONS "-Wl,-all_load" ${ALL_STATIC_LIBS})
-# elseif(WIN32)
-#     set(LINK_OPTIONS ${ALL_STATIC_LIBS})
-#     # Windows need more operations
-# endif()
-# message(INFO "LINK OPTIONS: ${LINK_OPTIONS}")
 
 include(UUtils/cmake/xxhash.cmake)
 include(UUtils/cmake/stdcpp.cmake)
@@ -70,6 +51,7 @@ list(APPEND PYBIND_MODULES
     "_c_uutils_hash_compute|pyuutils/hash/compute.cpp"
     "_c_uutils_base_random|pyuutils/base/random.cpp"
     "_c_uutils_base_platform|pyuutils/base/platform.cpp"
+    "_c_uutils_base_time|pyuutils/base/time.cpp"
 )
 
 foreach(MODULE_PAIR IN LISTS PYBIND_MODULES)
