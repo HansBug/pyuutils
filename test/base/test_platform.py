@@ -98,8 +98,7 @@ class TestPlatform:
     def test_get_os_error_windows(self, code, message):
         error_msg = get_os_error(code)
         assert isinstance(error_msg, str)
-        assert error_msg == message
-        # assert error_msg.rstrip() == message  # TODO: optimize the C code, we need to process \r\n linewrap
+        assert error_msg.rstrip() == message  # the output on windows contains extra \r at the end
 
     def test_get_memory_info_run(self):
         info = get_memory_info()
