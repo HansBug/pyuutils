@@ -52,6 +52,7 @@ list(APPEND PYBIND_MODULES
     "_c_uutils_base_random|pyuutils/base/random.cpp"
     "_c_uutils_base_platform|pyuutils/base/platform.cpp"
     "_c_uutils_base_time|pyuutils/base/time.cpp"
+    "_c_uutils_base_relation|pyuutils/base/relation.cpp"
 )
 
 foreach(MODULE_PAIR IN LISTS PYBIND_MODULES)

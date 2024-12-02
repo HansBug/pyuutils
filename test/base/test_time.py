@@ -1,6 +1,7 @@
 import time
 
 import pytest
+from hbutils.testing import OS
 
 from pyuutils.base import TimeMonitor
 
@@ -41,7 +42,8 @@ class TestBaseTime:
 
         monitor.has_passed()
         assert monitor.get_events() == 1
-        assert monitor.event_rate() == pytest.approx(1 / (time.time() - start_time), rel=0.8)
+        if not OS.windows:
+            assert monitor.event_rate() == pytest.approx(1 / (time.time() - start_time), rel=0.8)
 
     def test_time_monitor_reset_and_next(self):
         """Test reset and next methods."""

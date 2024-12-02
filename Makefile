@@ -25,6 +25,8 @@ RANGE_SRC_DIR   := ${SRC_DIR}/${RANGE_DIR}
 
 CTEST_CFG ?=
 
+COV_TYPES ?= xml term-missing
+
 build:
 	BINSTALL_DIR="${BINSTALL_DIR}" $(PYTHON) setup.py build_ext --inplace
 clean:
