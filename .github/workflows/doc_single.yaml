@@ -1,11 +1,11 @@
 # This workflow will check flake style
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Docs Deploy
+name: Docs Main
 
 on:
-#  push:
-#    branches: [ main, 'doc/*', 'dev/*' ]
+  push:
+    branches: [ main ]
 #  release:
 #    types: [ published ]
 
@@ -54,7 +54,7 @@ jobs:
           git remote -v
           git tag
           plantumlcli -c
-          make pdocs
+          make docs
           mv ./docs/build/html ./public
       - name: Deploy to Github Page
         uses: JamesIves/github-pages-deploy-action@3.7.1
