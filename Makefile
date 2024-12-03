@@ -59,3 +59,9 @@ bin_install:
 bin_clean:
 	rm -rf ${BUILD_DIR} ${BINSTALL_DIR}
 bin: bin_build bin_test bin_install
+bin_notest: bin_build bin_install
+
+docs:
+	$(MAKE) -C "${DOC_DIR}" build
+pdocs:
+	$(MAKE) -C "${DOC_DIR}" prod
