@@ -1,7 +1,7 @@
 name: Release Test
 
 on:
-#  push:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -12,9 +12,10 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - 'ubuntu-20.04'
-          - 'windows-2019'
+#          - 'ubuntu-20.04'
+#          - 'windows-2019'
           - 'macos-12'
+          - 'macos-14'
         python:
           - '3.8'
           - '3.9'
@@ -68,6 +69,24 @@ jobs:
             architecture: s390x
           - os: macos-12
             architecture: armv7l
+          - os: macos-12
+            architecture: arm64
+          - os: macos-14
+            architecture: aarch64
+          - os: macos-14
+            architecture: x86
+          - os: macos-14
+            architecture: AMD64
+          - os: macos-14
+            architecture: i686
+          - os: macos-14
+            architecture: ppc64le
+          - os: macos-14
+            architecture: s390x
+          - os: macos-14
+            architecture: armv7l
+          - os: macos-14
+            architecture: x86_64
 
     steps:
       - name: Checkout code
