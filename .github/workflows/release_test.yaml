@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-#          - 'ubuntu-20.04'
-#          - 'windows-2019'
+          - 'ubuntu-20.04'
+          - 'windows-2019'
           - 'macos-12'
         python:
           - '3.8'
@@ -23,7 +23,7 @@ jobs:
           - '3.12'
         architecture:
           - x86_64
-          - arm64  # macOS only, seems not well-supported
+#          - arm64  # macOS only, seems not well-supported
           - aarch64
           - x86
           - AMD64
