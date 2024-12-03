@@ -1,7 +1,7 @@
 name: Release Test
 
 on:
-  push:
+#  push:
   workflow_dispatch:
 
 jobs:
@@ -12,9 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-#          - 'ubuntu-20.04'
-#          - 'windows-2019'
-#          - 'macos-12'  # macOS 12 is x86_64 arch
+          - 'ubuntu-20.04'
+          - 'windows-2019'
+          - 'macos-12'  # macOS 12 is x86_64 arch
           - 'macos-14'  # macOS 14 is arm64 arch
         python:
           - '3.8'
