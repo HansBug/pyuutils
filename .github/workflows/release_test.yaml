@@ -24,7 +24,7 @@ jobs:
           - '3.12'
         architecture:
           - x86_64
-#          - arm64  # macOS only, seems not well-supported
+          - arm64  # macOS only, seems not well-supported
           - aarch64
           - x86
           - AMD64
