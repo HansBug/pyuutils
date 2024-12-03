@@ -221,7 +221,7 @@ jobs:
           platforms: all
       - name: Check the Arch on macOS
         if: ${{ runner.os == 'macOS' }}
-        bash: shell
+        shell: bash
         run: |
           [ "$(uname -m)" = "${{ matrix.architecture }}" ] || { echo "The architecture is not ${{ matrix.architecture }}."; exit 1; }
       - name: Build wheels
