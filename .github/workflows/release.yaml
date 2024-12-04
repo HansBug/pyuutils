@@ -154,17 +154,14 @@ jobs:
         run: |
           ls -al ./dist
       - name: Publish distribution 📦 to real PyPI
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@v1.8.10
         with:
           password: ${{ secrets.PYPI_PASSWORD }}
-          verbose: true
-          skip_existing: true
-          packages_dir: dist/
-      - name: Upload distribution 📦 to github release
+      - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/*
           tag: ${{ github.ref }}
-          overwrite: false
+          overwrite: true
           file_glob: true
