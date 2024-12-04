@@ -223,6 +223,7 @@ jobs:
         if: ${{ runner.os == 'macOS' }}
         shell: bash
         run: |
+          uname -m
           [ "$(uname -m)" = "${{ matrix.architecture }}" ] || { echo "The architecture is not ${{ matrix.architecture }}."; exit 1; }
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.3
