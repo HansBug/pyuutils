@@ -15,7 +15,7 @@ jobs:
         os:
           - 'ubuntu-20.04'
           - 'windows-2019'
-          - 'macos-12'
+          - 'macos-13'
         python-version:
           - '3.8'
           - '3.9'
@@ -152,7 +152,7 @@ jobs:
         os:
           - 'ubuntu-20.04'
           - 'windows-2019'
-          - 'macos-12'
+          - 'macos-13'
         python:
           - '3.8'
 #          - '3.9'
@@ -192,19 +192,19 @@ jobs:
             architecture: s390x
           - os: windows-2019
             architecture: armv7l
-          - os: macos-12
+          - os: macos-13
             architecture: aarch64
-          - os: macos-12
+          - os: macos-13
             architecture: x86
-          - os: macos-12
+          - os: macos-13
             architecture: AMD64
-          - os: macos-12
+          - os: macos-13
             architecture: i686
-          - os: macos-12
+          - os: macos-13
             architecture: ppc64le
-          - os: macos-12
+          - os: macos-13
             architecture: s390x
-          - os: macos-12
+          - os: macos-13
             architecture: armv7l
 
     steps:

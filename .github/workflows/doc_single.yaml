@@ -54,6 +54,7 @@ jobs:
           git remote -v
           git tag
           plantumlcli -c
+          make bin clean build
           make docs
           mv ./docs/build/html ./public
       - name: Deploy to Github Page
