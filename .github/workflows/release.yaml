@@ -6,7 +6,7 @@ on:
 
 jobs:
   wheel_build:
-    name: Build binary
+    name: Build binary 
     runs-on: ${{ matrix.os }}
     if: ${{ github.repository == 'HansBug/pyuutils' }}
     strategy:
