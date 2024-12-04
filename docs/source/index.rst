@@ -22,8 +22,7 @@ structure processing when the calculation is tree-based.
     :caption: API Documentation
 
     api_doc/config/index
-    api_doc/tree/index
-    api_doc/utils/index
+    api_doc/hash/index
 
 .. toctree::
     :maxdepth: 2
