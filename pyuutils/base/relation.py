@@ -1,4 +1,11 @@
+"""
+Relation convertion table:
+
+    .. include:: relation_table.demo.py.txt
+"""
 from enum import Enum
+
+import enum_tools
 
 # noinspection PyUnresolvedReferences
 from .._core._c_uutils_base_relation import _CRelation, _c_sym_relation, _c_sub2super, _c_super2sub
@@ -12,28 +19,41 @@ __all__ = [
 
 
 # noinspection PyProtectedMember
+@enum_tools.documentation.document_enum
 class Relation(Enum):
     """
     Enum for base relations between sets.
     """
 
-    # Incomparable or not (set1 <= set2) depending on exactness
     DIFFERENT = _CRelation._c_DIFFERENT
+    """
+    Incomparable or not (set1 <= set2) depending on exactness
+    """
 
-    # Set1 is a superset of set2 or not used
     SUPERSET = _CRelation._c_SUPERSET
+    """
+    Set1 is a superset of set2 or not used
+    """
 
-    # Same as superset
     GREATER = _CRelation._c_GREATER
+    """
+    Same as superset
+    """
 
-    # Set1 is a subset of set2 or set1 <= set2 depending on exactness
     SUBSET = _CRelation._c_SUBSET
+    """
+    Set1 is a subset of set2 or set1 <= set2 depending on exactness
+    """
 
-    # Same as subset
     LESS = _CRelation._c_LESS
+    """
+    Same as subset
+    """
 
-    # Set1 is equal to set2 or not used
     EQUAL = _CRelation._c_EQUAL
+    """
+    Set1 is equal to set2 or not used
+    """
 
     @classmethod
     def from_raw(cls, raw: _CRelation) -> 'Relation':
@@ -46,6 +66,7 @@ class Relation(Enum):
 def sym_relation(rel: Relation) -> Relation:
     """
     Return the symmetric of a relation (invert subset and superset bits).
+
     :param rel: Relation to invert.
     :return: Inverted relation.
     """
@@ -55,6 +76,7 @@ def sym_relation(rel: Relation) -> Relation:
 def sub2super(rel: Relation) -> Relation:
     """
     Convert a subset relation to a superset relation.
+
     :param rel: Relation to convert.
     :return: Converted relation.
     """
@@ -64,6 +86,7 @@ def sub2super(rel: Relation) -> Relation:
 def super2sub(rel: Relation) -> Relation:
     """
     Convert a superset relation to a subset relation.
+
     :param rel: Relation to convert.
     :return: Converted relation.
     """

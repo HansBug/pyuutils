@@ -21,6 +21,7 @@ structure processing when the calculation is tree-based.
     :maxdepth: 2
     :caption: API Documentation
 
+    api_doc/base/index
     api_doc/config/index
     api_doc/hash/index
 
