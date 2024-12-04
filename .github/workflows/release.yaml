@@ -1,13 +1,14 @@
-name: Release
+name: Package Release
 
 on:
-#  push:
-  workflow_dispatch:
+  release:
+    types: [ published ]
 
 jobs:
   wheel_build:
-    name: Try build
+    name: Build binary
     runs-on: ${{ matrix.os }}
+    if: ${{ github.repository == 'HansBug/pyuutils' }}
     strategy:
       fail-fast: false
       matrix:
