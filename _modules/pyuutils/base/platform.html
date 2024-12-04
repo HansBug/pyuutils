@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyuutils.base.platform &mdash; pyuutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f6245a2f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyuutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/base/index.html">pyuutils.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/config/index.html">pyuutils.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/hash/index.html">pyuutils.hash</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyuutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyuutils.base.platform</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <h1>Source code for pyuutils.base.platform</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">from</span> <span class="nn">.._core._c_uutils_base_platform</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_c_oserror</span><span class="p">,</span> <span class="n">_c_base_getMemInfo</span><span class="p">,</span> <span class="n">_c_base_initProcInfo</span><span class="p">,</span>
+    <span class="n">_c_base_getProcInfo</span><span class="p">,</span> <span class="n">_c_base_getProcInfoMax</span>
+<span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;MemInfo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ProcInfo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_os_error&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_memory_info&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;init_process_info&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_process_info&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_process_info_max&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="MemInfo"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.MemInfo">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MemInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representing system memory information.</span>
+
+<span class="sd">    All values are in kilobytes (kB).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phys_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Total physical RAM</span>
+    <span class="n">phys_avail</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Available physical RAM</span>
+    <span class="n">phys_cache</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Physical RAM cache</span>
+    <span class="n">swap_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Total swap space</span>
+    <span class="n">swap_avail</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Available swap space</span>
+    <span class="n">virt_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Total virtual memory</span>
+    <span class="n">virt_avail</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Available virtual memory</span></div>
+
+
+<div class="viewcode-block" id="ProcInfo"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.ProcInfo">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ProcInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representing process resource usage information.</span>
+
+<span class="sd">    Memory values are in kilobytes (kB).</span>
+<span class="sd">    Time values are in milliseconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mem_virt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Virtual memory configuration</span>
+    <span class="n">mem_work</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Working memory configuration</span>
+    <span class="n">mem_swap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Swap memory configuration</span>
+    <span class="n">time_user</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: User CPU time usage</span>
+    <span class="n">time_sys</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: System CPU time usage</span>
+    <span class="n">time_real</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Real time usage</span></div>
+
+
+<div class="viewcode-block" id="get_os_error"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.get_os_error">[docs]</a><span class="k">def</span> <span class="nf">get_os_error</span><span class="p">(</span><span class="n">error_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get OS-specific error description for given error code.</span>
+
+<span class="sd">    :param error_code: The error code to get description for</span>
+<span class="sd">    :type error_code: int</span>
+<span class="sd">    :return: Error description string</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_oserror</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_memory_info"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.get_memory_info">[docs]</a><span class="k">def</span> <span class="nf">get_memory_info</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">MemInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get hosting machine memory information.</span>
+
+<span class="sd">    :return: Memory information object</span>
+<span class="sd">    :rtype: MemInfo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">MemInfo</span><span class="p">()</span>
+    <span class="n">_c_base_getMemInfo</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">info</span></div>
+
+
+<div class="viewcode-block" id="init_process_info"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.init_process_info">[docs]</a><span class="k">def</span> <span class="nf">init_process_info</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize the process information gathering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_c_base_initProcInfo</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_process_info"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.get_process_info">[docs]</a><span class="k">def</span> <span class="nf">get_process_info</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ProcInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get current process memory and time consumption sample.</span>
+
+<span class="sd">    :return: Process information object</span>
+<span class="sd">    :rtype: ProcInfo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">ProcInfo</span><span class="p">()</span>
+    <span class="n">_c_base_getProcInfo</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">info</span></div>
+
+
+<div class="viewcode-block" id="get_process_info_max"><a class="viewcode-back" href="../../../api_doc/base/platform.html#pyuutils.base.platform.get_process_info_max">[docs]</a><span class="k">def</span> <span class="nf">get_process_info_max</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ProcInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get current process memory and time consumption sample and store maximum values.</span>
+
+<span class="sd">    :return: Process information object with maximum values</span>
+<span class="sd">    :rtype: ProcInfo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">ProcInfo</span><span class="p">()</span>
+    <span class="n">_c_base_getProcInfoMax</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">info</span></div>
+</pre></div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HansBug.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyuutils.hash.compute &mdash; pyuutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f6245a2f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyuutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/installation/index.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/quick_start/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/base/index.html">pyuutils.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/config/index.html">pyuutils.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_doc/hash/index.html">pyuutils.hash</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyuutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyuutils.hash.compute</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+    
+    
+  <h1>Source code for pyuutils.hash.compute</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="kn">from</span> <span class="nn">.._core._c_uutils_hash_compute</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_c_hash_murmur2_U8</span><span class="p">,</span> <span class="n">_c_hash_computeU32</span><span class="p">,</span> <span class="n">_c_hash_computeU16</span><span class="p">,</span>
+    <span class="n">_c_hash_computeI32</span><span class="p">,</span> <span class="n">_c_hash_computeI16</span><span class="p">,</span> <span class="n">_c_hash_computeI8</span><span class="p">,</span>
+    <span class="n">_c_hash_computeStr</span><span class="p">,</span> <span class="n">_c_hash_compute3</span>
+<span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;hash_compute_i16&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_murmur2_u8&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_compute3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_compute_str&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_compute_i32&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_compute_u16&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_compute_u32&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hash_compute_i8&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="hash_murmur2_u8"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_murmur2_u8">[docs]</a><span class="k">def</span> <span class="nf">hash_murmur2_u8</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">],</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value using Murmur2 for uint8_t data.</span>
+
+<span class="sd">    :param data: Input data</span>
+<span class="sd">    :type data: bytes or bytearray</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_murmur2_U8</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute_u32"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute_u32">[docs]</a><span class="k">def</span> <span class="nf">hash_compute_u32</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value for uint32_t data.</span>
+
+<span class="sd">    :param data: Input data</span>
+<span class="sd">    :type data: List[int]</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_computeU32</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute_u16"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute_u16">[docs]</a><span class="k">def</span> <span class="nf">hash_compute_u16</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value for uint16_t data.</span>
+
+<span class="sd">    :param data: Input data</span>
+<span class="sd">    :type data: List[int]</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_computeU16</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute_i32"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute_i32">[docs]</a><span class="k">def</span> <span class="nf">hash_compute_i32</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value for int32_t data.</span>
+
+<span class="sd">    :param data: Input data</span>
+<span class="sd">    :type data: List[int]</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_computeI32</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute_i16"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute_i16">[docs]</a><span class="k">def</span> <span class="nf">hash_compute_i16</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value for int16_t data.</span>
+
+<span class="sd">    :param data: Input data</span>
+<span class="sd">    :type data: List[int]</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_computeI16</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute_i8"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute_i8">[docs]</a><span class="k">def</span> <span class="nf">hash_compute_i8</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">],</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value for int8_t data.</span>
+
+<span class="sd">    :param data: Input data</span>
+<span class="sd">    :type data: bytes or bytearray</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_computeI8</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute_str"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute_str">[docs]</a><span class="k">def</span> <span class="nf">hash_compute_str</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">initval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute hash value for a string.</span>
+
+<span class="sd">    :param s: Input string</span>
+<span class="sd">    :type s: str</span>
+<span class="sd">    :param initval: Initial value for hash computation</span>
+<span class="sd">    :type initval: int</span>
+<span class="sd">    :return: Computed hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_computeStr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">initval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_compute3"><a class="viewcode-back" href="../../../api_doc/hash/compute.html#pyuutils.hash.compute.hash_compute3">[docs]</a><span class="k">def</span> <span class="nf">hash_compute3</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute a new hash from 3 previous hash values.</span>
+
+<span class="sd">    :param a: First hash value</span>
+<span class="sd">    :type a: int</span>
+<span class="sd">    :param b: Second hash value</span>
+<span class="sd">    :type b: int</span>
+<span class="sd">    :param c: Third hash value</span>
+<span class="sd">    :type c: int</span>
+<span class="sd">    :return: Combined hash value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_c_hash_compute3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span></div>
+</pre></div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HansBug.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
